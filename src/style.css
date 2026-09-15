@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  /* === COLORES === */
+  --color-negro-tinta: #1C1B1A;
+  --color-granate: #6E1F1F;
+  --color-musgo: #3B4A40;
+  --color-bronce: #B08D57;
+  --color-error: #9C3B3B;
+  --color-papel: #EFE6D8;
+
+  /* === TIPOGRAFÍA === */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Lora", serif;
+  --font-ui: "Inter", sans-serif;
+
+  /* === ESPACIADO PERSONALIZADO === */
+  --spacing-token-xs: 0.25rem;
+  --spacing-token-sm: 0.5rem;
+  --spacing-token-md: 1rem;
+  --spacing-token-lg: 1.5rem;
+  --spacing-token-xl: 2rem;
+  --spacing-token-2xl: 3rem;
+  --spacing-token-3xl: 4rem;
+
+  /* === BREAKPOINTS === */
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
+}
