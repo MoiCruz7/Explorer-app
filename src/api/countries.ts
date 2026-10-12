@@ -2,7 +2,7 @@ import type { Country } from '../types/country';
 
 const BASE_URL = 'https://api.restcountries.com/countries/v5';
 const PAGE_SIZE = 100;
-const CACHE_KEY = 'explorer-countries-v5';
+const CACHE_KEY = 'explorer-countries-v6';
 
 const FIELDS = [
   'codes.alpha_3',
@@ -14,6 +14,8 @@ const FIELDS = [
   'region',
   'population',
   'capitals',
+  'languages',
+  'currencies',
 ].join(',');
 
 export class ApiError extends Error {
@@ -52,10 +54,37 @@ function isOptionalCapitals(value: unknown): boolean {
   );
 }
 
+function isOptionalLanguages(value: unknown): boolean {
+  return (
+    value === undefined ||
+    value === null ||
+    (Array.isArray(value) &&
+      value.every(
+        (item) =>
+          isRecord(item) && isOptionalString(item.name) && isOptionalString(item.native_name),
+      ))
+  );
+}
+
+function isOptionalCurrencies(value: unknown): boolean {
+  return (
+    value === undefined ||
+    value === null ||
+    (Array.isArray(value) &&
+      value.every(
+        (item) =>
+          isRecord(item) &&
+          isOptionalString(item.name) &&
+          isOptionalString(item.code) &&
+          isOptionalString(item.symbol),
+      ))
+  );
+}
+
 function isCountry(value: unknown): value is Country {
   if (!isRecord(value)) return false;
 
-  const { codes, names, flag, region, population, capitals } = value;
+  const { codes, names, flag, region, population, capitals, languages, currencies } = value;
 
   return (
     isRecord(codes) &&
@@ -69,7 +98,9 @@ function isCountry(value: unknown): value is Country {
     isOptionalString(flag.description) &&
     isOptionalString(region) &&
     isOptionalNumber(population) &&
-    isOptionalCapitals(capitals)
+    isOptionalCapitals(capitals) &&
+    isOptionalLanguages(languages) &&
+    isOptionalCurrencies(currencies)
   );
 }
 

@@ -51,3 +51,28 @@ export function getFlagUrl(country: Country): string | null {
 export function getFlagAlt(country: Country): string {
   return `Bandera de ${getCountryName(country)}`;
 }
+
+export function getOfficialName(country: Country): string {
+  return cleanText(country.names.official) ?? getCountryName(country);
+}
+
+export function getLanguages(country: Country): string {
+  const names = (country.languages ?? [])
+    .map((language) => cleanText(language.name))
+    .filter((name): name is string => name !== null);
+
+  return names.length > 0 ? names.join(', ') : NOT_AVAILABLE;
+}
+
+export function getCurrencies(country: Country): string {
+  const items = (country.currencies ?? [])
+    .map((currency) => {
+      const name = cleanText(currency.name);
+      const code = cleanText(currency.code);
+      if (name !== null && code !== null) return `${name} (${code})`;
+      return name ?? code;
+    })
+    .filter((item): item is string => item !== null);
+
+  return items.length > 0 ? items.join(', ') : NOT_AVAILABLE;
+}
