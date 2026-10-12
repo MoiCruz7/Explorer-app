@@ -74,5 +74,9 @@ const searchInput = document.querySelector<HTMLInputElement>('#search-input')
 const regionSelect = document.querySelector<HTMLSelectElement>('#region-select')
 
 if (list && searchInput && regionSelect) {
+  // Si llegamos desde el buscador del Home (?q=...), rellena el campo antes de cargar.
+  const initialQuery = new URLSearchParams(window.location.search).get('q')
+  if (initialQuery) searchInput.value = initialQuery
+
   initCountryExplorer(list, searchInput, regionSelect)
 }
