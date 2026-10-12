@@ -17,6 +17,17 @@ export interface CountryCapital {
   name: string;
 }
 
+export interface CountryLanguage {
+  name?: string | null;
+  native_name?: string | null;
+}
+
+export interface CountryCurrency {
+  name?: string | null;
+  code?: string | null;
+  symbol?: string | null;
+}
+
 export interface Country {
   codes: CountryCodes;
   names: CountryNames;
@@ -24,4 +35,6 @@ export interface Country {
   region?: string | null;
   population?: number | null;
   capitals?: CountryCapital[] | null;
+  languages?: CountryLanguage[] | null;
+  currencies?: CountryCurrency[] | null;
 }
